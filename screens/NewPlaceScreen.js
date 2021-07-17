@@ -25,7 +25,7 @@ const NewPlaceScreen = props => {
   };
 
   const imageTakenHandler = imagePath => {
-    setSelectedIamge(imagePath);
+    setSelectedImage(imagePath);
   }
 
   const savePlaceHandler = () => {

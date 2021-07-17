@@ -6,7 +6,7 @@ import * as Permissions from 'expo-permissions';
 import Colors from '../constants/Colors';
 
 const ImgPicker = props => {
-    const [pickedImage, setPickedImage] = useState();
+const [pickedImage, setPickedImage] = useState();
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
     if (result.status !== 'granted') {
