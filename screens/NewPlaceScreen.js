@@ -27,7 +27,7 @@ const NewPlaceScreen = props => {
   };
 
   const imageTakenHandler = imagePath => {
-      setSelectedImage(imagePath);
+    setSelectedImage(imagePath);
   };
 
   const locationPickedHandler = useCallback(location => {
@@ -49,9 +49,9 @@ const NewPlaceScreen = props => {
           value={titleValue}
         />
         <ImagePicker onImageTaken={imageTakenHandler} />
-        <LocationPicker 
-          navigation={props.navigation} 
-          onLocationPicked={locationPickedHandler} 
+        <LocationPicker
+          navigation={props.navigation}
+          onLocationPicked={locationPickedHandler}
         />
         <Button
           title="Save Place"

@@ -7,6 +7,7 @@ import { fetchPlaces, insertPlace } from '../helpers/db';
 import ENV from '../env';
 
 export const addPlace = (title, image, location) => {
+  console.log('image', image);
   return async dispatch => {
     const response = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${
       location.lat}&lon=${
