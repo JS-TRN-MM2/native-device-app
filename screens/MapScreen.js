@@ -10,19 +10,29 @@ import MapView, { Marker } from 'react-native-maps';
 import Colors from '../constants/Colors';
 
 const MapScreen = props => {
-    const [selectedLocation, setSelectedLocation] = useState();
+    const initialLocation = props.navigation.getParam('initialLocation');
+    const readonly = props.navigation.getParam('readonly');
+
+    const [selectedLocation, setSelectedLocation] = useState(initialLocation);
+
     const mapRegion = {
-        latitude: 37.78,
-        longitude: -122.43,
+        latitude: initialLocation ? initialLocation.lat : 37.78,
+        longitude: initialLocation ? initialLocation.lat : -122.43,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.421
     };
 
     const selectLocationHandler = event => {
+        if (readonly) {
+            return;
+        }
+        console.log('MapScreen, selectLocationHandler, lat', event.nativeEvent.coordinate.latitude);
+        console.log('MapScreen, selectLocationHandler, lng', event.nativeEvent.coordinate.longitude);
         setSelectedLocation({
             lat: event.nativeEvent.coordinate.latitude,
             lng: event.nativeEvent.coordinate.longitude
         });
+        console.log('MapScreen, selectLocationHandler, selectedLocation', selectedLocation);
     }
 
     const savePickedLocationHandler = useCallback(() => {
@@ -47,8 +57,8 @@ const MapScreen = props => {
     }
     return (
         <MapView 
-            region={mapRegion} 
-            style={styles.map} 
+            style={styles.map}
+            region={mapRegion}
             onPress={selectLocationHandler}
         >
             {markerCoordinates && <Marker title="Picked Location" coordinate={markerCoordinates}></Marker>}
@@ -59,6 +69,11 @@ const MapScreen = props => {
 
 MapScreen.navigationOptions = navData => {
     const saveFn = navData.navigation.getParam('saveLocation');
+    const readonly = navData.navigation.getParam('readonly');
+    if (readonly) {
+        // headerRight will be an empty object
+        return {};
+    }
     return {
         headerRight: (
             <TouchableOpacity style={styles.headerButton} onPress={saveFn}>

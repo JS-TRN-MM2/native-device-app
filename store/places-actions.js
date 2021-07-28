@@ -7,7 +7,7 @@ import { fetchPlaces, insertPlace } from '../helpers/db';
 import ENV from '../env';
 
 export const addPlace = (title, image, location) => {
-  console.log('image', image);
+  //console.log('image', image);
   return async dispatch => {
     const response = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${
       location.lat}&lon=${
@@ -29,7 +29,7 @@ export const addPlace = (title, image, location) => {
     const address = resData.features[0].properties.formatted;
 
     const fileName = image.split('/').pop();
-    console.log('fileName is ', fileName);
+    //console.log('fileName is ', fileName);
     const newPath = FileSystem.documentDirectory + fileName;
 
     try {
@@ -44,7 +44,7 @@ export const addPlace = (title, image, location) => {
         location.lat, 
         location.lng
       );
-      console.log(dbResult);
+      //console.log(dbResult);
       dispatch({ 
         type: ADD_PLACE, 
         placeData: { 
@@ -77,7 +77,7 @@ export const loadPlaces = () => {
   return async dispatch => {
     try {
       const dbResult = await fetchPlaces();
-      console.log(dbResult);
+      //console.log(dbResult);
       // to test this, we ran this dispatch with empty array, looked at dbResult in console log
       // and you can see how to access the data...  in _array
       //dispatch ({ type: SET_PLACES, places: []);
